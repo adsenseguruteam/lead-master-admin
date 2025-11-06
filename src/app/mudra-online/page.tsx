@@ -100,7 +100,7 @@ export default function MudraLoanPage() {
 								Access business loans up to ₹10 Lakhs with
 								attractive interest rates, minimal
 								documentation, and quick approval under the
-								Government of India's flagship scheme.
+								Government of India&apos;s flagship scheme.
 							</p>
 							<div className='flex flex-col sm:flex-row gap-4'>
 								<Link
@@ -726,9 +726,9 @@ export default function MudraLoanPage() {
 								Contact Us
 							</h3>
 							<address className='not-italic text-gray-400'>
-								<p>123 Business Street</p>
+								<p>121 Business Street</p>
 								<p>Mumbai, Maharashtra 400001</p>
-								<p>Email: info@mudraloan.com</p>
+								<p>Email: info@deelzo.com</p>
 								<p>Phone: +91 98765 43210</p>
 							</address>
 						</div>
