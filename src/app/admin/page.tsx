@@ -18,8 +18,9 @@ export default function AdminPage() {
 	const [currentDateFilter, setCurrentDateFilter] = useState<
 		"today" | "yesterday" | "last7days" | "last30days" | "all"
 	>("today");
-	const [showDeleteAllConfirm, setShowDeleteAllConfirm] = useState(false);
-	const [isDeletingAll, setIsDeletingAll] = useState(false);
+	const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+	const [isDeleting, setIsDeleting] = useState(false);
+	const [deleteMode, setDeleteMode] = useState<"all" | "filtered">("all");
 
 	// Check if admin key exists on component mount
 	useEffect(() => {
@@ -192,16 +193,32 @@ export default function AdminPage() {
 		}
 	};
 
-	const handleDeleteAll = async () => {
+	const handleDeleteLeads = async () => {
 		if (!leads.length) return;
 
-		setIsDeletingAll(true);
+		setIsDeleting(true);
 		setError(null);
 
 		try {
-			const result = await leadAPI.deleteAll();
-			setLeads([]);
-			setShowDeleteAllConfirm(false);
+			let result;
+			
+			if (deleteMode === "all") {
+				result = await leadAPI.deleteAll();
+				setLeads([]);
+			} else {
+				const filteredLeads = getFilteredLeads(currentDateFilter);
+				const leadIds = filteredLeads.map(lead => lead.id);
+				
+				if (leadIds.length === 0) {
+					setError("No leads found for the selected filter");
+					return;
+				}
+				
+				result = await leadAPI.deleteMany(leadIds);
+				setLeads(prevLeads => prevLeads.filter(lead => !leadIds.includes(lead.id)));
+			}
+			
+			setShowDeleteConfirm(false);
 			console.log(`Successfully deleted ${result.deletedCount} leads`);
 		} catch (err: unknown) {
 			const errorMessage =
@@ -209,10 +226,10 @@ export default function AdminPage() {
 					? err.message
 					: (err as { response?: { data?: { error?: string } } })
 							?.response?.data?.error ||
-					  "Failed to delete all leads";
+				  "Failed to delete leads";
 			setError(errorMessage);
 		} finally {
-			setIsDeletingAll(false);
+			setIsDeleting(false);
 		}
 	};
 
@@ -340,15 +357,32 @@ export default function AdminPage() {
 								size='sm'>
 								Refresh
 							</Button>
+							<div className='flex gap-2'>
 							<Button
 								variant='destructive'
-								onClick={() => setShowDeleteAllConfirm(true)}
-								disabled={!leads.length || isDeletingAll}
+								onClick={() => {
+									setDeleteMode("filtered");
+									setShowDeleteConfirm(true);
+								}}
+								disabled={!filteredLeadsCount || isDeleting}
+								size='sm'
+								className='bg-amber-600 hover:bg-amber-700 text-white'>
+								<Trash2 className='h-4 w-4 mr-1' />
+								{isDeleting ? "Deleting..." : `Delete (${getDateFilterLabel(currentDateFilter)})`}
+							</Button>
+							<Button
+								variant='destructive'
+								onClick={() => {
+									setDeleteMode("all");
+									setShowDeleteConfirm(true);
+								}}
+								disabled={!leads.length || isDeleting}
 								size='sm'
 								className='bg-red-600 hover:bg-red-700 text-white'>
 								<Trash2 className='h-4 w-4 mr-1' />
-								{isDeletingAll ? "Deleting..." : "Delete All"}
+								{isDeleting ? "Deleting..." : "Delete All"}
 							</Button>
+						</div>
 						</div>
 
 						{/* Status Messages */}
@@ -392,39 +426,36 @@ export default function AdminPage() {
 				</Card>
 			</div>
 
-			{/* Delete All Confirmation Dialog */}
-			{showDeleteAllConfirm && (
+			{/* Delete Confirmation Dialog */}
+			{showDeleteConfirm && (
 				<div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
 					<Card className='w-full max-w-md mx-4'>
 						<CardHeader>
 							<CardTitle className='text-red-600 flex items-center'>
 								<Trash2 className='h-5 w-5 mr-2' />
-								Delete All Leads
+								{deleteMode === "all" ? "Delete All Leads" : `Delete ${getDateFilterLabel(currentDateFilter)} Leads`}
 							</CardTitle>
 						</CardHeader>
 						<CardContent className='space-y-4'>
 							<p className='text-gray-600'>
-								Are you sure you want to delete all{" "}
-								{leads.length} leads? This action cannot be
-								undone.
+								Are you sure you want to delete {deleteMode === "all" 
+								? `all ${leads.length} leads` 
+								: `the ${getFilteredLeads(currentDateFilter).length} leads from ${getDateFilterLabel(currentDateFilter).toLowerCase()}`}? 
+								This action cannot be undone.
 							</p>
 							<div className='flex gap-3 justify-end'>
 								<Button
 									variant='outline'
-									onClick={() =>
-										setShowDeleteAllConfirm(false)
-									}
-									disabled={isDeletingAll}>
+									onClick={() => setShowDeleteConfirm(false)}
+									disabled={isDeleting}>
 									Cancel
 								</Button>
 								<Button
 									variant='destructive'
-									onClick={handleDeleteAll}
-									disabled={isDeletingAll}
+									onClick={handleDeleteLeads}
+									disabled={isDeleting}
 									className='bg-red-600 hover:bg-red-700'>
-									{isDeletingAll
-										? "Deleting..."
-										: "Delete All"}
+									{isDeleting ? "Deleting..." : "Delete"}
 								</Button>
 							</div>
 						</CardContent>

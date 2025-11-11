@@ -81,6 +81,12 @@ export const leadAPI = {
 		});
 		return response.data;
 	},
+	deleteMany: async (leadIds: string[]) => {
+		const response = await api.delete("/api/leads", {
+			data: { leadIds },
+		});
+		return response.data;
+	},
 };
 
 export default api;

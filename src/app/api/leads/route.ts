@@ -222,7 +222,7 @@ export async function DELETE(req: Request) {
 		}
 
 		const body = await req.json().catch(() => ({}));
-		const { leadId, deleteAll } = body;
+		const { leadId, leadIds, deleteAll } = body;
 
 		await connectDb();
 
@@ -236,23 +236,34 @@ export async function DELETE(req: Request) {
 			});
 		}
 
+		// Handle multiple lead deletion
+		if (leadIds && Array.isArray(leadIds) && leadIds.length > 0) {
+			const result = await Lead.deleteMany({ _id: { $in: leadIds } });
+			return NextResponse.json({
+				ok: true,
+				deletedCount: result.deletedCount,
+				message: `Successfully deleted ${result.deletedCount} leads`,
+			});
+		}
+
 		// Handle single lead deletion
-		if (!leadId || typeof leadId !== "string") {
-			return NextResponse.json(
-				{ error: "Invalid request data" },
-				{ status: 400 }
-			);
+		if (leadId && typeof leadId === "string") {
+			const deleted = await Lead.findByIdAndDelete(leadId);
+			if (!deleted) {
+				return NextResponse.json(
+					{ error: "Lead not found" },
+					{ status: 404 }
+				);
+			}
+			return NextResponse.json({ ok: true });
 		}
 
-		const deleted = await Lead.findByIdAndDelete(leadId);
-		if (!deleted) {
-			return NextResponse.json(
-				{ error: "Lead not found" },
-				{ status: 404 }
-			);
-		}
+		// If no valid operation was performed
+		return NextResponse.json(
+			{ error: "Invalid request. Provide leadId, leadIds, or set deleteAll" },
+			{ status: 400 }
+		);
 
-		return NextResponse.json({ ok: true });
 	} catch (err) {
 		console.error("DELETE /api/leads error:", err);
 		return NextResponse.json(
