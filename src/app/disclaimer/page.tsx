@@ -10,7 +10,7 @@ export default function Disclaimer() {
 						Disclaimer
 					</CardTitle>
 					<p className='text-sm text-gray-600'>
-						Last updated: Sep-2025
+						Last updated: Oct-2025
 					</p>
 				</CardHeader>
 				<CardContent className='space-y-6'>
