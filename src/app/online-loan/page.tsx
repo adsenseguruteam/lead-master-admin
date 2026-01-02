@@ -1,42 +1,20 @@
-"use client";
-
-import { useState } from "react";
+import type { Metadata } from "next";
 import Head from "next/head";
-import { CheckCircle, Shield, Clock, FileText, ArrowRight } from "lucide-react";
+import { CheckCircle, Shield, Clock, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import LeadForm from "@/components/lead-form";
+
+export const metadata: Metadata = {
+	title: "Mudra Loan - Get Business Loan up to ₹10 Lakhs",
+	description:
+		"Get Quick Mudra Loan Upto ₹10 Lakhs, Minimum Paperwork, Quick approval",
+};
 
 export default function MudraLoanPage() {
-	const [formData, setFormData] = useState({
-		name: "",
-		phone: "",
-		email: "",
-		businessType: "",
-		loanAmount: "",
-	});
-
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-		// Handle form submission
-		console.log("Form submitted:", formData);
-		// You can add API call here
-	};
-
-	const handleChange = (
-		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-	) => {
-		const { name, value } = e.target;
-		setFormData((prev) => ({
-			...prev,
-			[name]: value,
-		}));
-	};
-
 	return (
 		<div className='min-h-screen bg-gray-50'>
 			<Head>
-				<title>
-					Mudra Loan - Get Business Loan up to ₹10 Lakhs | Lead Master
-				</title>
+				<title>Mudra Loan - Get Business Loan up to ₹10 Lakhs</title>
 				<meta
 					name='description'
 					content='Apply for Mudra Loan online and get up to ₹10 Lakhs for your business. Quick approval, minimal documentation, and attractive interest rates.'
@@ -87,14 +65,13 @@ export default function MudraLoanPage() {
 			{/* Hero Section */}
 			<section className='bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20'>
 				<div className='container mx-auto px-4'>
-					<div className='flex flex-col md:flex-row items-center'>
+					<div className='flex flex-col-reverse gap-5 md:flex-row items-center'>
 						<div className='md:w-1/2 mb-8 md:mb-0'>
 							<span className='bg-white/20 text-sm font-semibold px-4 py-1 rounded-full mb-4 inline-block'>
 								Pradhan Mantri MUDRA Yojana
 							</span>
 							<h1 className='text-4xl md:text-5xl font-bold mb-6 leading-tight'>
-								Empowering Micro Enterprises with Financial
-								Support
+								Get Mudra Business Loan Upto ₹10 Lakhs
 							</h1>
 							<p className='text-xl mb-8 max-w-2xl'>
 								Access business loans up to ₹10 Lakhs with
@@ -104,7 +81,7 @@ export default function MudraLoanPage() {
 							</p>
 							<div className='flex flex-col sm:flex-row gap-4'>
 								<Link
-									href='https://www.mudra.org.in/'
+									href='/online-loan'
 									className='bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold py-3 px-8 rounded-full flex items-center justify-center transition duration-300'>
 									Apply Now <ArrowRight className='ml-2' />
 								</Link>
@@ -127,88 +104,8 @@ export default function MudraLoanPage() {
 								</div>
 							</div>
 						</div>
-						<div className='md:w-1/2'>
-							<div className='bg-white/20 backdrop-blur-sm p-8 rounded-2xl'>
-								<h3 className='text-2xl font-bold mb-6'>
-									Get Instant Callback
-								</h3>
-								<form
-									onSubmit={handleSubmit}
-									className='space-y-4'>
-									<div>
-										<input
-											type='text'
-											name='name'
-											placeholder='Full Name'
-											className='w-full p-3 rounded-lg border-gray-100 border text-gray-100'
-											required
-											value={formData.name}
-											onChange={handleChange}
-										/>
-									</div>
-									<div>
-										<input
-											type='tel'
-											name='phone'
-											placeholder='Mobile Number'
-											className='w-full p-3 rounded-lg border-gray-100 border text-gray-100'
-											required
-											value={formData.phone}
-											onChange={handleChange}
-										/>
-									</div>
-									<div>
-										<select
-											name='businessType'
-											className='w-full p-3 rounded-lg border-gray-100 border text-gray-100'
-											value={formData.businessType}
-											onChange={handleChange}
-											required>
-											<option value=''>
-												Select Business Type
-											</option>
-											<option value='manufacturing'>
-												Manufacturing
-											</option>
-											<option value='trading'>
-												Trading
-											</option>
-											<option value='service'>
-												Service
-											</option>
-											<option value='retail'>
-												Retail
-											</option>
-										</select>
-									</div>
-									<div>
-										<select
-											name='loanAmount'
-											className='w-full p-3 rounded-lg border-gray-100 border text-gray-100'
-											value={formData.loanAmount}
-											onChange={handleChange}
-											required>
-											<option value=''>
-												Loan Amount Required
-											</option>
-											<option value='50000'>
-												Up to ₹50,000
-											</option>
-											<option value='500000'>
-												₹50,000 - ₹5,00,000
-											</option>
-											<option value='1000000'>
-												₹5,00,000 - ₹10,00,000
-											</option>
-										</select>
-									</div>
-									<button
-										type='submit'
-										className='w-full bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold py-3 px-6 rounded-lg transition duration-300'>
-										Get Free Consultation
-									</button>
-								</form>
-							</div>
+						<div className='md:w-1/2 mb-16'>
+							<LeadForm />
 						</div>
 					</div>
 				</div>
@@ -311,89 +208,6 @@ export default function MudraLoanPage() {
 								Fast processing and quick disbursal of loan
 								amount to your account.
 							</p>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			{/* Loan Categories */}
-			<section id='categories' className='py-16 bg-white'>
-				<div className='container mx-auto px-4'>
-					<h2 className='text-3xl font-bold text-center mb-12'>
-						Mudra Loan Categories
-					</h2>
-					<div className='grid md:grid-cols-3 gap-8'>
-						<div className='bg-white p-8 rounded-xl shadow-md'>
-							<h3 className='text-2xl font-bold text-blue-700 mb-4'>
-								Shishu
-							</h3>
-							<p className='text-gray-600 mb-4'>
-								Loans up to ₹50,000 for new businesses and
-								startups.
-							</p>
-							<ul className='space-y-2 text-gray-600'>
-								<li className='flex items-center'>
-									<CheckCircle className='text-green-500 mr-2 w-5 h-5' />{" "}
-									No collateral required
-								</li>
-								<li className='flex items-center'>
-									<CheckCircle className='text-green-500 mr-2 w-5 h-5' />{" "}
-									Low interest rates
-								</li>
-								<li className='flex items-center'>
-									<CheckCircle className='text-green-500 mr-2 w-5 h-5' />{" "}
-									Easy documentation
-								</li>
-							</ul>
-						</div>
-						<div className='bg-white p-8 rounded-xl shadow-md border-2 border-blue-500 transform scale-105'>
-							<div className='bg-blue-500 text-white text-sm font-bold px-3 py-1 rounded-full inline-block mb-4'>
-								MOST POPULAR
-							</div>
-							<h3 className='text-2xl font-bold text-blue-700 mb-4'>
-								Kishor
-							</h3>
-							<p className='text-gray-600 mb-4'>
-								Loans from ₹50,001 to ₹5,00,000 for established
-								businesses.
-							</p>
-							<ul className='space-y-2 text-gray-600'>
-								<li className='flex items-center'>
-									<CheckCircle className='text-green-500 mr-2 w-5 h-5' />{" "}
-									Collateral free up to ₹10 Lakhs
-								</li>
-								<li className='flex items-center'>
-									<CheckCircle className='text-green-500 mr-2 w-5 h-5' />{" "}
-									Competitive interest rates
-								</li>
-								<li className='flex items-center'>
-									<CheckCircle className='text-green-500 mr-2 w-5 h-5' />{" "}
-									Flexible repayment
-								</li>
-							</ul>
-						</div>
-						<div className='bg-white p-8 rounded-xl shadow-md'>
-							<h3 className='text-2xl font-bold text-blue-700 mb-4'>
-								Tarun
-							</h3>
-							<p className='text-gray-600 mb-4'>
-								Loans from ₹5,00,001 to ₹10,00,000 for business
-								expansion.
-							</p>
-							<ul className='space-y-2 text-gray-600'>
-								<li className='flex items-center'>
-									<CheckCircle className='text-green-500 mr-2 w-5 h-5' />{" "}
-									Higher loan amounts
-								</li>
-								<li className='flex items-center'>
-									<CheckCircle className='text-green-500 mr-2 w-5 h-5' />{" "}
-									Collateral required
-								</li>
-								<li className='flex items-center'>
-									<CheckCircle className='text-green-500 mr-2 w-5 h-5' />{" "}
-									Business growth support
-								</li>
-							</ul>
 						</div>
 					</div>
 				</div>
