@@ -3,6 +3,7 @@
 import type React from "react";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -17,6 +18,7 @@ type Status = {
 };
 
 export default function LeadForm() {
+	const router = useRouter();
 	const [name, setName] = useState("");
 	const [phone, setPhone] = useState("");
 	const [email, setEmail] = useState("");
@@ -41,6 +43,8 @@ export default function LeadForm() {
 				type: "success",
 				message: "Thanks! We'll be in touch soon.",
 			});
+			
+			router.push("/online-loan/thankyou");
 
 			// Reset form
 			setName("");

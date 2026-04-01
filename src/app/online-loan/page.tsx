@@ -24,11 +24,11 @@ export default function MudraLoanPage() {
 			<div className='bg-[#0e1f5c] text-white py-1 px-4 text-xs sm:text-sm border-b-4 border-[#ea580c]'>
 				<div className='container mx-auto flex justify-between items-center'>
 					<div className='flex items-center gap-2 opacity-90 font-medium tracking-wider'>
-						<span>भारत सरकार | GOVERNMENT OF INDIA</span>
+						<span>Get Mudra Business Loan upto ₹10 Lakhs</span>
 					</div>
-					<div className='hidden md:flex gap-4 opacity-90 font-medium tracking-wider'>
+					{/* <div className='hidden md:flex gap-4 opacity-90 font-medium tracking-wider'>
 						<span>सूक्ष्म लघु एवं मध्यम उद्यम मंत्रालय | Ministry of MSME</span>
-					</div>
+					</div> */}
 				</div>
 			</div>
 
