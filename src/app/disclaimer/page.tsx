@@ -147,11 +147,11 @@ export default function Disclaimer() {
 							If you have any questions about this disclaimer,
 							please contact us:
 						</p>
-						<div className='mt-2 text-gray-700'>
+						{/* <div className='mt-2 text-gray-700'>
 							<p>Email: contact@evtn.org</p>
 							<p>Phone: +917755089819</p>
 							<p>Address: Old Shivli Road, Kalyanpur Kanpur</p>
-						</div>
+						</div> */}
 					</div>
 
 					<div className='pt-6 border-t border-gray-200'>

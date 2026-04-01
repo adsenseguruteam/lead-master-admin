@@ -130,11 +130,11 @@ export default function PrivacyPolicy() {
 							If you have any questions about this privacy policy
 							or our data practices, please contact us at:
 						</p>
-						<div className='mt-2 text-gray-700'>
+						{/* <div className='mt-2 text-gray-700'>
 							<p>Email: contact@evtn.com</p>
 							<p>Phone: +917755089819</p>
 							<p>Address: Old Shivli Road, Kalyanpur Kanpur</p>
-						</div>
+						</div> */}
 					</div>
 
 					<div className='pt-6 border-t border-gray-200'>
