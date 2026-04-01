@@ -132,7 +132,7 @@ export default function MudraLoanPage() {
 						</h2>
 						<div className='w-24 border-b-4 border-[#ea580c] mx-auto mb-8'></div>
 						<p className='text-gray-600 font-medium md:text-xl leading-relaxed'>
-							Under the aegis of Pradhan Mantri MUDRA Yojana, interventions have been named 'Shishu', 'Kishore' and 'Tarun' to signify the stage of growth and funding needs.
+							Under the aegis of Pradhan Mantri MUDRA Yojana, interventions have been named &apos;Shishu&apos;, &apos;Kishore&apos; and &apos;Tarun&apos; to signify the stage of growth and funding needs.
 						</p>
 					</div>
 
@@ -230,7 +230,7 @@ export default function MudraLoanPage() {
 								What makes PMMY unique?
 							</h2>
 							<p className='text-gray-700 mb-8 font-medium text-lg leading-relaxed'>
-								Pradhan Mantri MUDRA Yojana (PMMY) was launched by the Hon'ble Prime Minister on April 8, 2015, for providing loans up to 10 lakh to the non-corporate, non-farm small/micro enterprises.
+								Pradhan Mantri MUDRA Yojana (PMMY) was launched by the Hon&apos;ble Prime Minister on April 8, 2015, for providing loans up to 10 lakh to the non-corporate, non-farm small/micro enterprises.
 							</p>
 							<div className='space-y-6'>
 								<div className='flex items-start gap-4 text-left bg-white p-5 rounded-xl shadow-sm border border-gray-100'>
