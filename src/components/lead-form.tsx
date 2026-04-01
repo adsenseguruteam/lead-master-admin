@@ -171,12 +171,12 @@ export default function LeadForm() {
 							</Link>
 							.
 						</p>
-						<p>
+						{/* <p>
 							<b>Disclaimer:</b> This form is for loan application
 							purposes only. Submission does not guarantee loan
 							approval. All applications are subject to credit
 							review and approval based on our lending criteria.
-						</p>
+						</p> */}
 					</div>
 
 					<Button
