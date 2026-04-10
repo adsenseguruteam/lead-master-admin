@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Head from "next/head";
 import { CheckCircle, Shield, Clock, ArrowRight, FileText, IndianRupee, Landmark } from "lucide-react";
-import Link from "next/link";
 import LeadForm from "@/components/lead-form";
 
 export const metadata: Metadata = {

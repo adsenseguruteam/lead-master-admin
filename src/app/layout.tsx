@@ -16,6 +16,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en' suppressHydrationWarning>
+			<head suppressHydrationWarning>
+				{/* <link rel="manifest" href="/manifest.json" /> */}
+			</head>
 			<body
 				className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}
 				suppressHydrationWarning>
